@@ -17,7 +17,7 @@ And to run initial setup execute this command:
 ## How to execute the Tests
 
 `docker exec symfony_dockerized_php_1 bash -c "sh bin/run_tests.sh"`
-
+>
 ## How access this with postman?
 
 Oh that is Simple! There is a postman file in `docs` folder. Enjoy it!
