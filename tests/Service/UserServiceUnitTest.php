@@ -2,9 +2,9 @@
 
 namespace App\Tests\Controller;
 
-use PHPUnit\Framework\TestCase;
+use App\Tests\Base\BaseUnitTests;
 
-class UserServiceUnitTest extends TestCase
+class UserServiceUnitTest extends BaseUnitTests
 {
     public function testSomething(): void
     {

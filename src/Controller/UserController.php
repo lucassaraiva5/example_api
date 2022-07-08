@@ -12,27 +12,17 @@ use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 
-/**
- * @OA\Info(title="My First API", version="0.1")
- */
 class UserController extends BaseController
 {
-    public function __construct(UserService $userService){
+    public function __construct(UserService $userService)
+    {
         $this->service = $userService;
         $this->entity = new User();
         $this->typeClass = RegistrationFormType::class;
     }
 
-
     /**
      * @Route("/register", name="app_register")
-     * @OA\Get(
-     *     path="/api/data.json",
-     *     @OA\Response(
-     *         response="200",
-     *         description="The data"
-     *     )
-     * )
      */
     public function register(Request $request): Response
     {

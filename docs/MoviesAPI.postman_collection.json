@@ -16,7 +16,7 @@
 							"script": {
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
-									"pm.environment.set(\"token\", jsonData.token);"
+									"pm.collectionVariables.set(\"token\", jsonData.token);"
 								],
 								"type": "text/javascript"
 							}
@@ -200,7 +200,7 @@
 	"variable": [
 		{
 			"key": "host",
-			"value": "http://localhost:8001",
+			"value": "http://localhost:8000",
 			"type": "default"
 		},
 		{

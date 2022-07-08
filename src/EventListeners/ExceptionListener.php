@@ -82,6 +82,16 @@ class ExceptionListener
                 ], Response::HTTP_UNAUTHORIZED);
 
                 break;
+            case 'Symfony\Component\HttpKernel\Exception\NotFoundHttpException':
+                $response = new JsonResponse([
+                    'error' => 'Route not found.',
+                ], Response::HTTP_NOT_FOUND);
+                break;
+            case 'Symfony\Component\PropertyAccess\Exception\InvalidArgumentException':
+                $response = new JsonResponse([
+                    'error' => 'Invalid JSON content.',
+                ], Response::HTTP_BAD_REQUEST);
+                break;
             default:
                 $response = new JsonResponse([
                     'error' => 'There was an issue completing your request.',

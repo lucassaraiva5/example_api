@@ -7,6 +7,7 @@ use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormInterface;
 use App\Entity\Interfaces\ApplicationEntityInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 class MovieService extends BaseService
 {
@@ -36,7 +37,7 @@ class MovieService extends BaseService
         $entity = $this->entityManager->getRepository($this->entityClass)->findOneBy(["id"=>$id, "user"=>$userAuthenticated]);
 
         if(empty($entity)) {
-            throw new \Exception("Movie not found");
+            throw new \Exception("Movie not found", Response::HTTP_NOT_FOUND);
         }
 
         return $entity->toArray();

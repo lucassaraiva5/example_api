@@ -15,10 +15,10 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
  */
 class MovieController extends BaseController
 {
-    private $movieService;
     private $tokenStorage;
 
-    public function __construct(MovieService $movieService, TokenStorageInterface $storage){
+    public function __construct(MovieService $movieService, TokenStorageInterface $storage)
+    {
         $this->service = $movieService;
         $this->entity = new Movie();
         $this->typeClass = MovieFormType::class;
@@ -28,8 +28,7 @@ class MovieController extends BaseController
     /**
      * @Route("/movies", name="movie_save", methods={"POST"})
      */
-    public function new(
-        Request $request): Response
+    public function new(Request $request): Response
     {
         $user = $this->tokenStorage->getToken()->getUser();
         return $this->save($request, $user);

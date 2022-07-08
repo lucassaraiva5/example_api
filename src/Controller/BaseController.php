@@ -2,22 +2,22 @@
 
 namespace App\Controller;
 
+use App\Controller\Interfaces\ControllerInterface;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Entity\Interfaces\ApplicationEntityInterface;
+use function PHPUnit\Framework\returnValue;
 
-class BaseController extends AbstractController
+class BaseController extends AbstractController implements ControllerInterface
 {
     protected $entity;
     protected $typeClass;
     protected $service;
 
-    protected function save(Request $request, ?User $userAuthenticated) {
-        $data = json_decode($request->getContent(), true);
-        $form = $this->createForm($this->typeClass, $this->entity);
+    public function save(Request $request, ?User $userAuthenticated): Response  {
+        $form = $this->createForm($this->getTypeClass(), $this->getEntity());
         $this->processForm($request, $form);
 
         if (!$form->isValid()) {
@@ -26,46 +26,46 @@ class BaseController extends AbstractController
         }
 
         try {
-            $entity = $this->service->save($this->entity, $form, $userAuthenticated);
+            $entity = $this->getService()->save($this->getEntity(), $form, $userAuthenticated);
             return $this->json($entity->toArrayCreated(), Response::HTTP_CREATED);
         }
         catch (\Throwable $exception)
         {
-            return $this->json(["error"=>$exception->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR]);
+            return $this->json(["error"=>$exception->getMessage()], $exception->getCode());
         }
     }
 
-    protected function getListEntity(Request $request, ?User $userAuthenticated) {
+    public function getListEntity(Request $request, ?User $userAuthenticated): Response {
         try {
-            $result = $this->service->getAll($userAuthenticated);
+            $result = $this->getService()->getAll($userAuthenticated);
             return $this->json($result, Response::HTTP_OK);
         }
         catch (\Throwable $exception)
         {
-            return $this->json(["error"=>$exception->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR]);
+            return $this->json(["error"=>$exception->getMessage()], $exception->getCode());
         }
     }
 
-    protected function getSingleEntity(int $id, ?User $userAuthenticated){
+    public function getSingleEntity(int $id, ?User $userAuthenticated): Response {
         try {
-            $result = $this->service->getById($id, $userAuthenticated);
+            $result = $this->getService()->getById($id, $userAuthenticated);
             return $this->json($result, Response::HTTP_OK);
         }
         catch (\Throwable $exception)
         {
-            return $this->json(["error"=>$exception->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR]);
+            return $this->json(["error"=>$exception->getMessage()], $exception->getCode());
         }
     }
 
-    protected function processForm(Request $request, FormInterface $form)
+    public function processForm(Request $request, FormInterface $form): void
     {
         $data = json_decode($request->getContent(), true);
         $clearMissing = $request->getMethod() != 'PATCH';
         $form->submit($data, $clearMissing);
     }
 
-    protected function getErrorMessages(FormInterface $form) {
-        $errors = array();
+    public function getErrorMessages(FormInterface $form): array {
+        $errors = [];
         foreach ($form->getErrors() as $key => $error) {
             $template = $error->getMessageTemplate();
             $parameters = $error->getMessageParameters();
@@ -85,4 +85,21 @@ class BaseController extends AbstractController
         }
         return $errors;
     }
+
+    function getEntity()
+    {
+        return $this->entity;
+    }
+
+    function getTypeClass()
+    {
+        return $this->typeClass;
+    }
+
+    function getService()
+    {
+        return $this->service;
+    }
+
+
 }
