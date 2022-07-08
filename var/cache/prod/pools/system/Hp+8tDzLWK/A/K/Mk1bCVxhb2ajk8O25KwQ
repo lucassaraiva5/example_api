@@ -1,0 +1,50 @@
+<?php //App%255CController%255CUserController
+
+return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\Internal\Hydrator::hydrate(
+    $o = [
+        clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['OpenApi\\Annotations\\Info'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('OpenApi\\Annotations\\Info')),
+        clone ($p['OpenApi\\Context'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('OpenApi\\Context')),
+        clone ($p['OpenApi\\Loggers\\DefaultLogger'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('OpenApi\\Loggers\\DefaultLogger')),
+    ],
+    null,
+    [
+        'stdClass' => [
+            'title' => [
+                'My First API',
+            ],
+            'version' => [
+                '0.1',
+            ],
+            '_context' => [
+                $o[1],
+            ],
+            'logger' => [
+                1 => $o[2],
+            ],
+            'filename' => [
+                1 => '/Users/lucassaraivacardoso/Documents/example_api_repository/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php',
+            ],
+            'line' => [
+                1 => 1474,
+            ],
+            'method' => [
+                1 => 'instantiateAnnotiation',
+            ],
+            'class' => [
+                1 => 'DocParser',
+            ],
+            'namespace' => [
+                1 => 'Doctrine\\Common\\Annotations',
+            ],
+            'annotations' => [
+                1 => [
+                    $o[0],
+                ],
+            ],
+        ],
+    ],
+    [
+        $o[0],
+    ],
+    []
+); }];

@@ -6,6 +6,7 @@
 /public/bundles/
 /vendor/
 /.idea/
+/.env.test.local
 ###< symfony/framework-bundle ###
 
 ###> lexik/jwt-authentication-bundle ###

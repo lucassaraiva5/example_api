@@ -8,6 +8,7 @@ use App\Form\MovieFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * @Route("/api/v1")
@@ -15,11 +16,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class MovieController extends BaseController
 {
     private $movieService;
+    private $tokenStorage;
 
-    public function __construct(MovieService $movieService){
+    public function __construct(MovieService $movieService, TokenStorageInterface $storage){
         $this->service = $movieService;
         $this->entity = new Movie();
         $this->typeClass = MovieFormType::class;
+        $this->tokenStorage = $storage;
     }
 
     /**
@@ -28,7 +31,8 @@ class MovieController extends BaseController
     public function new(
         Request $request): Response
     {
-        return $this->save($request);
+        $user = $this->tokenStorage->getToken()->getUser();
+        return $this->save($request, $user);
     }
 
     /**
@@ -36,7 +40,8 @@ class MovieController extends BaseController
      */
     public function getById(Request $request, int $id): Response
     {
-        return $this->getSingleEntity($id);
+        $user = $this->tokenStorage->getToken()->getUser();
+        return $this->getSingleEntity($id, $user);
     }
 
     /**
@@ -44,6 +49,7 @@ class MovieController extends BaseController
      */
     public function getAll(Request $request): Response
     {
-        return $this->getListEntity($request);
+        $user = $this->tokenStorage->getToken()->getUser();
+        return $this->getListEntity($request, $user);
     }
 }

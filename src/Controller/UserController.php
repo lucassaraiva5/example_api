@@ -34,9 +34,8 @@ class UserController extends BaseController
      *     )
      * )
      */
-    public function register(
-        Request $request): Response
+    public function register(Request $request): Response
     {
-        return $this->save($request);
+        return $this->save($request, null);
     }
 }

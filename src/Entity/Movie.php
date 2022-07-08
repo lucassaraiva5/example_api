@@ -56,6 +56,11 @@ class Movie implements ApplicationEntityInterface
      */
     private $ratings;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     */
+    private $user;
+
     public function __construct()
     {
         $this->casts = [];
@@ -147,6 +152,24 @@ class Movie implements ApplicationEntityInterface
     public function setRatings($ratings)
     {
         $this->ratings = $ratings;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     * @return Movie
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
         return $this;
     }
 

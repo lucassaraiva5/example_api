@@ -27,8 +27,8 @@ class AuthenticationApplicationTest extends WebTestCase
                 'exceptions' => false
             ]
         ]);
-
-        $response = $client->post( 'http://host.docker.internal:8001/authentication_token', [
+        $host = $_ENV["HOST"];
+        $response = $client->post( "http://{$host}/authentication_token", [
             \GuzzleHttp\RequestOptions::JSON => [
                 'email' => 'test@example.com',
                 'password' => 'test1234',
@@ -41,11 +41,11 @@ class AuthenticationApplicationTest extends WebTestCase
         $this->assertArrayHasKey('token', $json);
 
         // test not authorized
-        $response = $client->request('GET','http://host.docker.internal:8001/api/v1/movies', ['http_errors' => false]);
+        $response = $client->request('GET',"http://{$host}/api/v1/movies", ['http_errors' => false]);
         $this->assertEquals($response->getStatusCode(), Response::HTTP_UNAUTHORIZED);
 
         // test authorized
-        $response = $client->request('GET', 'http://host.docker.internal:8001/api/v1/movies', ['http_errors' => false, 'headers' =>
+        $response = $client->request('GET', "http://{$host}/api/v1/movies", ['http_errors' => false, 'headers' =>
         [
             'Authorization' => "Bearer {$json['token']}"
         ]]);

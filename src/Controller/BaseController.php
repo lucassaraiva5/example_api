@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,7 +15,7 @@ class BaseController extends AbstractController
     protected $typeClass;
     protected $service;
 
-    protected function save(Request $request) {
+    protected function save(Request $request, ?User $userAuthenticated) {
         $data = json_decode($request->getContent(), true);
         $form = $this->createForm($this->typeClass, $this->entity);
         $this->processForm($request, $form);
@@ -25,7 +26,7 @@ class BaseController extends AbstractController
         }
 
         try {
-            $entity = $this->service->save($this->entity, $form);
+            $entity = $this->service->save($this->entity, $form, $userAuthenticated);
             return $this->json($entity->toArrayCreated(), Response::HTTP_CREATED);
         }
         catch (\Throwable $exception)
@@ -34,9 +35,9 @@ class BaseController extends AbstractController
         }
     }
 
-    protected function getListEntity(Request $request) {
+    protected function getListEntity(Request $request, ?User $userAuthenticated) {
         try {
-            $result = $this->service->getAll();
+            $result = $this->service->getAll($userAuthenticated);
             return $this->json($result, Response::HTTP_OK);
         }
         catch (\Throwable $exception)
@@ -45,9 +46,9 @@ class BaseController extends AbstractController
         }
     }
 
-    protected function getSingleEntity(int $id){
+    protected function getSingleEntity(int $id, ?User $userAuthenticated){
         try {
-            $result = $this->service->getById($id);
+            $result = $this->service->getById($id, $userAuthenticated);
             return $this->json($result, Response::HTTP_OK);
         }
         catch (\Throwable $exception)
