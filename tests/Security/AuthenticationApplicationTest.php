@@ -21,13 +21,14 @@ class AuthenticationApplicationTest extends WebTestCase
 
     public function testLogin(): void
     {
+        $host = $_ENV["HOST"];
         $client = new \GuzzleHttp\Client([
-            'base_url' => 'http://host.docker.internal:8001',
+            'base_url' => "http://{$host}",
             'defaults' => [
                 'exceptions' => false
             ]
         ]);
-        $host = $_ENV["HOST"];
+
         $response = $client->post( "http://{$host}/authentication_token", [
             \GuzzleHttp\RequestOptions::JSON => [
                 'email' => 'test@example.com',
