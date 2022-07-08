@@ -17,4 +17,4 @@ jobs:
       run: docker-compose -f "docker-compose.yml" up -d --build
       
     - name: Start up application
-      run: docker exec -it symfony_dockerized_php_1 bash -c "sh bin/run_tests.sh"
+      run: docker exec symfony_dockerized_php_1 bash -c "sh bin/run_tests.sh"
