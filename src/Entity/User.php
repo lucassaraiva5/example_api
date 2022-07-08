@@ -146,6 +146,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Applica
 
     public function toArray(){
         return [
+            "username" => $this->username,
+            "email" => $this->email,
+        ];
+    }
+
+    public function toArrayCreated(){
+        return [
             "id" => $this->id,
             "username" => $this->username,
             "email" => $this->email,
