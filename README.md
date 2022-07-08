@@ -1,6 +1,6 @@
 ## Movies Test API
 
-##Requirements
+## Requirements
  * Docker version >= 20.10.17
  * docker-compose version >= 1.29.2
 
@@ -12,7 +12,7 @@ Build the docker
 
 And to run initial setup execute this command:
 
-`docker exec symfony_dockerized_php_1 bash -c "sh bin/run_initial_setup.sh" `
+`xd `
 
 ## How to execute the Tests
 
