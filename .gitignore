@@ -6,6 +6,7 @@
 /public/bundles/
 /vendor/
 /.idea/
+/var/
 /.env.test.local
 ###< symfony/framework-bundle ###
 
