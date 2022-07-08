@@ -36,6 +36,6 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 COPY . /var/www/symfony
 
-RUN chown www-data:www-data -Rf /var/www/symfony/var;
+RUN chmod 775 -Rf /var/www/symfony/var
 
 WORKDIR /var/www/symfony
