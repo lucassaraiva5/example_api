@@ -8,9 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Entity\User;
 
-class UserService
+class UserService extends BaseService
 {
-    private $entityManager;
     private $userPasswordHasher;
 
     public function __construct(
@@ -25,7 +24,7 @@ class UserService
     /**
      * @throws \Exception
      */
-    public function save(User $user, FormInterface $form, ?User $userAuthenticated) {
+    public function save(User $user, FormInterface $form, ?User $userAuthenticated): User {
         $user->setPassword(
             $this->userPasswordHasher->hashPassword(
                 $user,
