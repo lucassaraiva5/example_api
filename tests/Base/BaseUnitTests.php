@@ -16,12 +16,10 @@ abstract class BaseUnitTests extends TestCase
         if(!empty($constructParams) && empty($methods)) {
             $mockedClass = $this->getMockBuilder($className)
                 ->setConstructorArgs($constructParams)
-                //->onlyMethods($methodsNameArray)
                 ->getMock();
         }else if(empty($constructParams) && empty($methods)){
             $mockedClass = $this->getMockBuilder($className)
                 ->disableOriginalConstructor()
-                //->onlyMethods($methodsNameArray)
                 ->getMock();
         }else if(!empty($constructParams) && !empty($methods)) {
             $mockedClass = $this->getMockBuilder($className)

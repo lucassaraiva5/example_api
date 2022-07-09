@@ -32,7 +32,6 @@ class MovieControllerUnitTest extends BaseUnitTests
 
     public function testNewAction(): void
     {
-        //Define response
         $mockedJsonResponse = new JsonResponse(["foo"=>"bar"]);
         $this->mockMovieController = $this->createMockClass(MovieController::class, ["save"=>$this->returnValue($mockedJsonResponse)], [$this->mockMovieService, $this->mockTokenStorage]);
 
@@ -56,7 +55,6 @@ class MovieControllerUnitTest extends BaseUnitTests
 
     public function testGetAllAction(): void
     {
-        //Define response
         $mockedJsonResponse = new JsonResponse(["foo"=>"bar"]);
         $this->mockMovieController = $this->createMockClass(MovieController::class, ["getListEntity"=>$this->returnValue($mockedJsonResponse)], [$this->mockMovieService, $this->mockTokenStorage]);
 
