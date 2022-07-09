@@ -12,14 +12,14 @@ class BaseService implements ServiceInterface
     protected $entityManager;
     protected $entityClass;
 
-    public function save(ApplicationEntityInterface $entity, FormInterface $form, ?User $userAuthenticated) {
+    public function saveEntity(ApplicationEntityInterface $entity, FormInterface $form, ?User $userAuthenticated): ApplicationEntityInterface {
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush();
 
         return $entity;
     }
 
-    public function getAll(?User $userAuthenticated) {
+    public function getAllEntities(?User $userAuthenticated): array {
         $entities = $this->getEntityManager()->getRepository($this->getEntityClass())->findAll();
         $array = [];
         foreach ($entities as $entity) {
@@ -28,7 +28,7 @@ class BaseService implements ServiceInterface
         return $array;
     }
 
-    public function getById(int $id, ?User $userAuthenticated) {
+    public function getEntityById(int $id, ?User $userAuthenticated): array {
         $entity = $this->getEntityManager()->getRepository($this->getEntityClass())->findOneById($id);
 
         if(empty($entity)) {

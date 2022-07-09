@@ -97,6 +97,9 @@ class ExceptionListener
                     'error' => 'There was an issue completing your request.',
                 ]);
 
+                var_dump($exception->getMessage());
+                var_dump($exception->getTraceAsString());
+
                 break;
         }
         $event->setResponse($response);

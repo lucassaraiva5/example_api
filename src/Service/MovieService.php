@@ -21,11 +21,11 @@ class MovieService extends BaseService
      */
     public function save(ApplicationEntityInterface $entity, FormInterface $form, ?User $userAuthenticated) {
         $entity->setUser($userAuthenticated);
-        return parent::save($entity, $form, $userAuthenticated);
+        return $this->saveEntity($entity, $form, $userAuthenticated);
     }
 
     public function getAll(?User $userAuthenticated){
-        $entities = $this->entityManager->getRepository($this->entityClass)->findBy(["user"=>$userAuthenticated]);
+        $entities = $this->getEntityManager()->getRepository($this->getEntityClass())->findBy(["user"=>$userAuthenticated]);
         $array = [];
         foreach ($entities as $entity) {
             $array[] = $entity->toArray();
@@ -34,7 +34,7 @@ class MovieService extends BaseService
     }
 
     public function getById(int $id, ?User $userAuthenticated) {
-        $entity = $this->entityManager->getRepository($this->entityClass)->findOneBy(["id"=>$id, "user"=>$userAuthenticated]);
+        $entity = $this->getEntityManager()->getRepository($this->getEntityClass())->findOneBy(["id"=>$id, "user"=>$userAuthenticated]);
 
         if(empty($entity)) {
             throw new \Exception("Movie not found", Response::HTTP_NOT_FOUND);

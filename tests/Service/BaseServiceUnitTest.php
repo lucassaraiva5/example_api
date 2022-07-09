@@ -36,7 +36,7 @@ class BaseServiceUnitTest extends BaseUnitTests
             ->method("getEntityManager")
             ->will($this->returnValue($mockEntityManager));
 
-        $this->mockBaseService->save($this->mockEntity, $this->mockForm, $this->mockUserAuthenticated);
+        $this->mockBaseService->saveEntity($this->mockEntity, $this->mockForm, $this->mockUserAuthenticated);
     }
 
     public function testGetAll()
@@ -57,7 +57,7 @@ class BaseServiceUnitTest extends BaseUnitTests
             ->method("getEntityClass")
             ->will($this->returnValue("class"));
 
-        $result = $this->mockBaseService->getAll($this->mockEntity);
+        $result = $this->mockBaseService->getAllEntities($this->mockEntity);
         $this->assertArrayHasKey(0, $result);
         $this->assertArrayHasKey("foo", $result[0]);
         $this->assertEquals("bar", $result[0]["foo"]);
@@ -82,7 +82,7 @@ class BaseServiceUnitTest extends BaseUnitTests
             ->will($this->returnValue("class"));
 
         $id = 1;
-        $result = $this->mockBaseService->getById($id, $this->mockEntity);
+        $result = $this->mockBaseService->getEntityById($id, $this->mockEntity);
         $this->assertArrayHasKey("foo", $result);
         $this->assertEquals("bar", $result["foo"]);
     }
